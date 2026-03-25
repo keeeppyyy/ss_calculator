@@ -8,13 +8,22 @@ export default {
             isReversed: false
         }
     },
+    watch: {
+        inputValue(newVal) {
+            if (newVal === '' || newVal === null) {
+                this.resultValue = '';
+                this.error = null;
+                return;
+            }
+            this.calculate();
+        }
+    },
     methods: {
         async calculate() {
             this.error = null;
             this.resultValue = '';
 
             if (!this.inputValue) {
-                this.error = 'Enter a value';
                 return;
             }
 
@@ -31,12 +40,10 @@ export default {
 
                 const response = await axios.get(url, { params });
 
-                // Successful request
                 this.resultValue = this.isReversed ? response.data.diameter : response.data.weight;
                 this.error = null;
 
             } catch (error) {
-                // Handle server error
                 if (error.response && error.response.status === 404) {
                     if (this.isReversed) {
                         this.error = `Weight ${this.inputValue} does not exist`;
@@ -52,7 +59,6 @@ export default {
         },
 
         clearResult() {
-            this.resultValue = '';
             this.error = null;
         },
 
@@ -67,17 +73,16 @@ export default {
 </script>
 
 <template>
-    <section class="space-y-6 font-montserrat">
-        <h2 class="text-6xl font-kameron text-bold text-[#001A36] text-center">DIAMETR TO WEIGHT</h2>
-        <div class="bg-[#0a3147] p-8 rounded-2xl max-w-3xl mx-auto p-10">
+    <section class="space-y-6 font-montserrat mt-20">
+        <h2 class="text-6xl font-kameron text-bold text-[#001A36] text-center">DIAMETER TO WEIGHT</h2>
+        <div class="bg-[#001A36] p-8 rounded-2xl max-w-3xl mx-auto p-10">
             <div class="flex justify-between">
                 <div>
-                    <p>{{ isReversed ? 'WEIGHT(ct)' : 'DIAMETR' }}</p>
+                    <p class="text-[#e7f6ff] text-base font-kameron">{{ isReversed ? 'WEIGHT(ct)' : 'DIAMETER' }}</p>
                     <input
                         v-model="inputValue"
                         type="number"
                         step="0.01"
-                        id="input-1"
                         placeholder="0.00"
                         class="p-2 rounded text-center w-40 bg-[#e7f6ff] outline-none cursor-pointer mt-1"
                         :class="{ 'border-2 border-red-500': error }"
@@ -86,7 +91,6 @@ export default {
                 </div>
                 <div class="flex items-end">
                     <button
-                        id="reverse-btn"
                         class="p-2 rounded cursor-pointer transition-all duration-300 hover:scale-125 active:scale-90 bg-transparent hover:bg-transparent"
                         :class="{ 'rotate-180': isReversed }"
                         @click="toggleMode">
@@ -94,23 +98,16 @@ export default {
                     </button>
                 </div>
                 <div>
-                    <p>{{ isReversed ? 'DIAMETR' : 'WEIGHT(ct)' }}</p>
+                    <p class="text-[#e7f6ff] text-base font-kameron">{{ isReversed ? 'DIAMETER' : 'WEIGHT(ct)' }}</p>
                     <input
                         v-model="resultValue"
                         type="number"
                         step="0.01"
-                        id="input-2"
                         placeholder="0.00"
                         class="p-2 rounded text-center w-40 bg-[#e7f6ff] outline-none cursor-pointer mt-1"
                         readonly>
                 </div>
             </div>
-            <button
-                @click="calculate"
-                class="bg-blue-500 hover:bg-blue-600 font-bold py-2 px-4 rounded cursor-pointer mt-10"
-                :disabled="!inputValue">
-                {{ isReversed ? 'CALCULATE DIAMETER' : 'CALCULATE WEIGHT' }}
-            </button>
         </div>
     </section>
 </template>

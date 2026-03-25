@@ -22,3 +22,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('/get-weight', \App\Http\Controllers\Api\DiamToWeight\IndexController::class)->name('get-weight');
 
 Route::get('/get-diameter', \App\Http\Controllers\Api\WeightToDiam\IndexController::class)->name('get-diameter');
+
+Route::get('/average-weight', \App\Http\Controllers\Api\AverageWeight\IndexController::class)->name('average-weight');

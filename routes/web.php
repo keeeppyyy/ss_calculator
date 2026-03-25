@@ -13,7 +13,5 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', \App\Http\Controllers\Client\IndexController::class)->name('client.pages.index');
-
-Route::get('/', \App\Http\Controllers\Client\IndexController::class)->where('page', '(.*)');
+Route::get('/{any?}', \App\Http\Controllers\Client\IndexController::class)->where('any', '.*')->name('client.pages.index');
 
