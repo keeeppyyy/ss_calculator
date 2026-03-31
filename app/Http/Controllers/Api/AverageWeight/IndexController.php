@@ -13,17 +13,14 @@ class IndexController extends Controller
         $min = $request->input('min');
         $max = $request->input('max');
 
-        // Валидация
         if (!is_numeric($min) || !is_numeric($max)) {
             return response()->json(['error' => 'Min and max must be numbers'], 400);
         }
 
         $average = ($min + $max) / 2;
 
-        // Округляем до 2 знаков (как в базе данных)
         $averageRounded = round($average, 2);
 
-        // Ищем точное совпадение
         $gem = Gem::where('diam', $averageRounded)->first();
 
         if ($gem) {
@@ -34,7 +31,6 @@ class IndexController extends Controller
             ]);
         }
 
-        // Если точного нет — ищем ближайший диаметр
         $closestGem = Gem::orderByRaw('ABS(diam - ?)', [$averageRounded])->first();
 
         if (!$closestGem) {

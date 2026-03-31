@@ -1,11 +1,15 @@
 @import "tailwindcss";
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     background: rgba(231, 246, 255, 1);
 }
 
-.font-jomolhar {
-    font-family: 'Jomolhar', sans-serif;
+.font-jomolhari {
+    font-family: 'Jomolhari', sans-serif;
 }
 
 .font-kameron {
@@ -13,8 +17,26 @@ body {
 }
 
 .container {
-    width: 1200px;
+    width: 100%;
     margin: 0 auto;
+}
+
+@media (max-width: 639px) {
+    .container {
+        max-width: 360px;
+    }
+}
+
+@media (min-width: 640px) and (max-width: 1279px) {
+    .container {
+        max-width: 640px;
+    }
+}
+
+@media (min-width: 1280px) {
+    .container {
+        max-width: 1200px;
+    }
 }
 
 .rotate-180 {
@@ -34,4 +56,3 @@ input[type="number"] {
 input:focus::placeholder {
     opacity: 0;
 }
-

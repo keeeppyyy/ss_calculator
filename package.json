@@ -13,6 +13,7 @@
     },
     "dependencies": {
         "@tailwindcss/vite": "^4.1.18",
+        "locomotive-scroll": "^5.0.1",
         "tailwindcss": "^4.1.18",
         "vue": "^3.5.28",
         "vue-router": "^4.6.4"
