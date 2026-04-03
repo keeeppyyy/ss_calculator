@@ -25,7 +25,7 @@ watch(() => route.hash, scrollToTarget)
 </script>
 
 <template>
-    <main class="container py-4 space-y-4 xl:py-20 xl:space-y-20">
+    <main class="container py-10 space-y-10 xl:py-20 xl:space-y-20">
         <section class="bg-[#001A36] text-white rounded-4xl">
             <div class="flex flex-col sm:flex-row md:flex-row xl:flex-row justify-between items-center">
                 <img
